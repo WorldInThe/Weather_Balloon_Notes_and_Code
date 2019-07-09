@@ -14,9 +14,7 @@ R=4.5ohms</code>
 ## PWM (Pulse Width Modulation)
 * A way of controlling how long something is active within a set 
 frequency.
-<img 
-src="http://solarhomestead.com/wp-content/uploads/2015/09/pulse-width-modulation-PWM.jpg" 
-width="50%">
+<img src="http://solarhomestead.com/wp-content/uploads/2015/09/pulse-width-modulation-PWM.jpg" width="50%">
 * Can be used to control the brightness of an led and can also be used 
 to control amplitude of a audio signal. (Class D Amplifiers work under 
 this principle.)
@@ -24,11 +22,11 @@ this principle.)
 ## Blinking an led with an Arduino
 * First we connect our Arduino as so.
 * Squiggly line is a resistor while the triangle with line is the LED. 
-<img 
-src="https://www.arduino.cc/en/uploads/Tutorial/ExampleCircuit_sch.png" 
-width="35%">
+<img src="https://www.arduino.cc/en/uploads/Tutorial/ExampleCircuit_sch.png" width="35%">
+
 * Then we program the Arduino with the following code.
 BlinkSketch.ino
+
 ```arduino
 /* Most DevBoards will have an LED already 
    connected to pin 13 so you can either use the
@@ -52,8 +50,8 @@ In this case it's 5V.
 purpose built PWM feature on the board. 490Hz for all pins except 5 and 
 6 which can run at 980Hz.
 * Use the following code. (Grabbed from the Arduino documentation at 
-https://www.arduino.cc/reference/en/language/functions/analog-io/analogwrite/ 
-)
+https://www.arduino.cc/reference/en/language/functions/analog-io/analogwrite/)
+
 ```arduino
 int ledPin = 9;      // LED connected to digital pin 9
 int analogPin = 3;   // potentiometer connected to analog pin 3
