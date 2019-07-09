@@ -1,0 +1,76 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arduino Class Descriptive notes</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__html"><h2 id="ohms-law">Ohm’s Law</h2>
+<ul>
+<li>Current is equal to the voltage divided by the resistance.</li>
+<li>Ex:<br>
+<code>C=V/R<br>
+C=10V/10ohms<br>
+C=1A</code></li>
+<li>This can also be changed to find other values with simple Algebra.</li>
+<li>Ex:<br>
+<code>2A=9V/R<br>
+R*2A=9V<br>
+R=9V/2A<br>
+R=4.5ohms</code></li>
+</ul>
+<h2 id="pwm-pulse-width-modulation">PWM (Pulse Width Modulation)</h2>
+<ul>
+<li>A way of controlling how long something is active within a set frequency.<br>
+<img src="http://solarhomestead.com/wp-content/uploads/2015/09/pulse-width-modulation-PWM.jpg" width="50%"></li>
+<li>Can be used to control the brightness of an led and can also be used to control amplitude of a audio signal. (Class D Amplifiers work under this principle.)</li>
+</ul>
+<h2 id="blinking-an-led-with-an-arduino">Blinking an led with an Arduino</h2>
+<ul>
+<li>First we connect our Arduino as so.</li>
+<li>Squiggly line is a resistor while the triangle with line is the LED.<br>
+<img src="https://www.arduino.cc/en/uploads/Tutorial/ExampleCircuit_sch.png" width="35%"></li>
+<li>Then we program the Arduino with the following code.<br>
+BlinkSketch.ino</li>
+</ul>
+<pre class=" language-arduino"><code class="prism  language-arduino"><span class="token comment">/* Most DevBoards will have an LED already 
+   connected to pin 13 so you can either use the
+   following or replace LED_BUILTIN with 13 */</span>
+<span class="token comment">// Only runs once. </span>
+<span class="token keyword">void</span> <span class="token keyword">setup</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	<span class="token function">pinMode</span><span class="token punctuation">(</span><span class="token constant">LED_BUILTIN</span><span class="token punctuation">,</span> <span class="token constant">OUTPUT</span><span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token comment">// Sets up the pin specified to use as an output.</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// Runs until power is cut or placed in sleep mode.</span>
+<span class="token keyword">void</span> <span class="token keyword">loop</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	<span class="token function">digitalWrite</span><span class="token punctuation">(</span><span class="token constant">LED_BUILTIN</span><span class="token punctuation">,</span> <span class="token constant">HIGH</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// Sets pin 13 to full voltage. In this case it's 5V.</span>
+	<span class="token function">delay</span><span class="token punctuation">(</span><span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>			 <span class="token comment">// Do nothing for one second.</span>
+	<span class="token function">digitalWrite</span><span class="token punctuation">(</span><span class="token constant">LED_BUILTIN</span><span class="token punctuation">,</span> <span class="token constant">LOW</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">// Sets pin 13 to no voltage.</span>
+	<span class="token function">delay</span><span class="token punctuation">(</span><span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>			 <span class="token comment">// Do nothing for one second.</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<ul>
+<li>If you connect the LED to pin 3, 5, 6, 9, 10, or 11 you can use the purpose built PWM feature on the board. 490Hz for all pins except 5 and 6 which can run at 980Hz.</li>
+<li>Use the following code. (Grabbed from the Arduino documentation at <a href="https://www.arduino.cc/reference/en/language/functions/analog-io/analogwrite/">https://www.arduino.cc/reference/en/language/functions/analog-io/analogwrite/</a> )</li>
+</ul>
+<pre class=" language-arduino"><code class="prism  language-arduino"><span class="token keyword">int</span> ledPin <span class="token operator">=</span> <span class="token number">9</span><span class="token punctuation">;</span>      <span class="token comment">// LED connected to digital pin 9</span>
+<span class="token keyword">int</span> analogPin <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">;</span>   <span class="token comment">// potentiometer connected to analog pin 3</span>
+<span class="token keyword">int</span> val <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>         <span class="token comment">// variable to store the read value</span>
+
+<span class="token keyword">void</span> <span class="token keyword">setup</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token function">pinMode</span><span class="token punctuation">(</span>ledPin<span class="token punctuation">,</span> <span class="token constant">OUTPUT</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">// sets the pin as output</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">void</span> <span class="token keyword">loop</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  val <span class="token operator">=</span> <span class="token function">analogRead</span><span class="token punctuation">(</span>analogPin<span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">// read the input pin</span>
+  <span class="token function">analogWrite</span><span class="token punctuation">(</span>ledPin<span class="token punctuation">,</span> val <span class="token operator">/</span> <span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// analogRead values go from 0 to 1023, analogWrite values from 0 to 255</span>
+<span class="token punctuation">}</span>
+</code></pre>
+</div>
+</body>
+
+</html>
