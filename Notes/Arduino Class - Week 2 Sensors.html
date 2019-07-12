@@ -1,0 +1,124 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Week 2 Sensors</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__html"><h2 id="analog-vs-digital">Analog vs Digital</h2>
+
+<table>
+<thead>
+<tr>
+<th>Analog</th>
+<th>Digital</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sensed with using the analog pins on the Arduino</td>
+<td>Sensed with digital or Analog IO pins</td>
+</tr>
+<tr>
+<td>Requires Special hardware that is built in the Arduino</td>
+<td>Requires High Voltage to be within Arduino Spec.(5V in most cases)</td>
+</tr>
+<tr>
+<td>Is how all sensors actually function</td>
+<td>Used only for Boolean values.(This can be used at high speeds for serial data)</td>
+</tr>
+</tbody>
+</table><h2 id="analog-sensors">Analog Sensors</h2>
+<h3 id="description">Description</h3>
+<p>Analog Sensors can be powered to send an analog signal to a microcontroller or even be used directly in a circuit.<br>
+Examples of analog changing sensors:</p>
+<ul>
+<li>Photoresistor - uses light to control the resistance in a circuit.</li>
+<li>Capacitive - Measure the capacitance on a surface that touches it. Very commonly used with cell phone screens and touch sensitive buttons. Some have the ability to output more or less voltage depending on the touch strength.</li>
+<li>Thermistor - uses a temperature difference to change the resistance within a circuit.<br>
+Examples of analog output sensors:</li>
+<li>Many Accelerometers - Creates an analog signal depending on their speed of movement.</li>
+<li>Many Gyroscopes - Creates an analog signal depending on rotation in a 2d field.</li>
+<li>Microphone - Creates a voltage from the movement of a suspended membrane and magnetic fields.</li>
+</ul>
+<h2 id="digital">Digital</h2>
+<h3 id="description-1">Description</h3>
+<p>Digital sensors only output boolean values (High and Low). As such digital sensors are technically only switches.<br>
+Examples of Digital Sensors:</p>
+<ul>
+<li>Tilt switch - Uses mercury to bridge two contacts and complete a eletrical circuit.</li>
+<li>A standard switch/ button - Allows electrons to flow through the circuit when activated.</li>
+</ul>
+<h3 id="why-do-we-care">Why do we care</h3>
+<p>Digital IO can be used to send and receive serialized and Paralleled data. This will be used on a vast majority of our sensors.<br>
+Data IO can use many different standards. We’ll be looking at I2C,  SPI, and Parallel.</p>
+<h3 id="parallel">Parallel</h3>
+<ul>
+<li>Simpler than Serial.</li>
+<li>Uses one line per bit of data that needs to be sent/received.</li>
+<li>No real limit on bits as long as the microcontroller can handle the data.</li>
+<li>Not used much any more.</li>
+<li>Can get around IO limit by using shift registers.</li>
+<li>Does not require a clock signal to keep the sender and receiver in sync.</li>
+</ul>
+<figure>
+	<img src="https://2.bp.blogspot.com/-Y0eLMqTuD18/VEjJeLi6kiI/AAAAAAAAAGE/zrzrIh9EcZA/s1600/12.jpg" width="45%">
+	<figcaption>Shown: 8-Bit Parallel Data transfer</figcaption>
+</figure>
+Manually addressing and and storing bits into a Parallel EEPROM chip.
+<iframe src="https://www.youtube.com/embed/BA12Z7gQ4P0" allowfullscreen="" width="90%" height="85%"></iframe>
+<p>Addressing and storing bits with an arduino. (Can also be used to Read EEPROM chips for items like Gameboys and such.)</p>
+<iframe src="https://www.youtube.com/embed/K88pgWhEb1M" allowfullscreen="" width="90%" height="85%"></iframe>
+<p>As an aside this guy does a lot of computer logic and showing how the low level logic works. It’s a great watch.</p>
+<h4 id="serial-data">Serial Data</h4>
+<ul>
+<li>More complex than parallel.</li>
+<li>Amount of lines varies depending on standard.
+<ul>
+<li>I2C requires one line for data.</li>
+<li>SPI requires 2 for data. One for transmission, one for receive.</li>
+</ul>
+</li>
+<li>Can daisy chain multiple components</li>
+<li>Widely supported on most digital components.</li>
+<li>Requires a clock signal to keep components and microcontroller in sync.</li>
+</ul>
+<figure>
+<img src="http://iwatchsystems.com/technical/wp-content/uploads/2010/12/Srl.gif" width="45%">
+<figcaption>Shown: MSB means Most Significant Bit. LSB means Least Significant Bit. </figcaption>
+</figure>
+<p>Data Transmission over 2 wires. One clock and one data.</p>
+<iframe src="https://www.youtube.com/embed/eq5YpKHXJDM" allowfullscreen="" width="90%" height="85%"></iframe>
+<h3 id="spi">SPI</h3>
+<ul>
+<li>Minimum of four wires.</li>
+<li>2 Data IO.
+<ul>
+<li>MOSI - Master Out Slave In</li>
+<li>MISO - Master In Slave Out</li>
+</ul>
+</li>
+<li>SCLK - Signal Clock for sync between components</li>
+<li>SS - Slave Select for choosing which component to send and receive data to. Need one line for each component.</li>
+<li>Lower overhead and higher data transfer speed.</li>
+<li>Supports rates up to 10MHz or 10million bits per second</li>
+</ul>
+<h3 id="i2c">I2C</h3>
+<ul>
+<li>Minimum of 2 wires(Not including power and ground)</li>
+<li>SDA - Signal Data handles send and receive on one line</li>
+<li>SCL - Signal Clock handles the syncing of data between devices</li>
+<li>Higher overhead and lower data transfer speed.</li>
+<li>Allows at most 1008 slave devices.</li>
+<li>Is also a multi master system allowing multiple masters to access the same components. They must take turn however.</li>
+<li>Sends an extra bit for every 8-bits sent</li>
+<li>Can operate at up to 5MHz</li>
+</ul>
+</div>
+</body>
+
+</html>
